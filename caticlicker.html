@@ -129,7 +129,7 @@
       </table>
     </div>
 
-    <button onclick="gameSave()">Save</button>
+    <button onclick="gameSave()">Save (the game autosaves every 30 seconds)</button>
 
       <script>
 
@@ -197,6 +197,13 @@
           if (typeof gameSave.scratchingPostCost !== "undefined") scratchingPostCost = gameSave.scratchingPostCost
           if (typeof gameSave.scratchingPostPower !== "undefined") scratchingPostPower = gameSave.scratchingPostPower
           if (typeof gameSave.scratchingPosts !== "undefined") scratchingPosts = gameSave.scratchingPosts
+
+          document.getElementById("cats").innerHTML = cats;
+          document.getElementById("litterboxes").innerHTML = litterboxes;
+          document.getElementById("litterboxCost").innerHTML = litterboxCost;
+          document.getElementById("scratchingPosts").innerHTML = scratchingPosts;
+          document.getElementById("scratchingPostCost").innerHTML = scratchingPostCost;
+          updateCPS()
         }
 
         function gameSave() {

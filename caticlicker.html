@@ -99,6 +99,7 @@
         <div class="cat">
           <img src="resources/gfx/cati.png" height="384" width="384" onclick="addToCats(clickingPower)">
 
+
         </center>
     </div>
 
@@ -121,27 +122,27 @@
           <td id="image"><img src="resources/gfx/scratchingPost.png" height="92" width="92"></td>
           <td id="nameAndCost">
             <h3>Scrathing Post</h3>
-            <p><span id="scratchingpostCost">250</span> cats</p>
+            <p><span id="scratchingPostCost">250</span> cats</p>
           </td>
-          <td id="amount"><h1><span id="scratchingposts">0</span></h3></td>
+          <td id="amount"><h1><span id="scratchingPosts">0</span></h3></td>
         </tr>
       </table>
     </div>
+
+    <button onclick="gameSave()">Save</button>
 
       <script>
 
         var cats = 0;
         var clickingPower = 1;
         var catsPerSecond = 0;
-        var CPSinterval = 1;
-        var CPSdecimal = true;
 
         var litterboxCost = 15;
         var litterboxPower = 1;
         var litterboxes = 0;
-        var scratchingpostCost= 250;
-        var scratchingpostPower = 10;
-        var scratchingposts = 0;
+        var scratchingPostCost= 250;
+        var scratchingPostPower = 10;
+        var scratchingPosts = 0;
 
 
         function buyLitterbox() {
@@ -157,16 +158,16 @@
           }
         }
         function buyScratchingPost() {
-          if (cats >= scratchingpostCost) {
-            cats = cats - scratchingpostCost;
-            scratchingposts = scratchingposts + 1;
-            scratchingpostCost = Math.round(scratchingpostCost * 1.2);
+          if (cats >= scratchingPostCost) {
+            cats = cats - scratchingPostCost;
+            scratchingPosts = scratchingPosts + 1;
+            scratchingPostCost = Math.round(scratchingPostCost * 1.2);
             updateCPS()
             
 
             document.getElementById("cats").innerHTML = cats;
-            document.getElementById("scratchingposts").innerHTML = scratchingposts;
-            document.getElementById("scratchingpostCost").innerHTML = scratchingpostCost;
+            document.getElementById("scratchingPosts").innerHTML = scratchingPosts;
+            document.getElementById("scratchingPostCost").innerHTML = scratchingPostCost;
           }
         }
           
@@ -178,11 +179,48 @@
         }
 
         function updateCPS() {
-          catsPerSecond = (litterboxes * litterboxPower ) + (scratchingposts * scratchingpostPower); 
+          catsPerSecond = (litterboxes * litterboxPower ) + (scratchingPosts * scratchingPostPower); 
           document.getElementById("catsPerSecond").innerHTML = catsPerSecond;
           document.title = cats + " cats - CatiClicker"
 
         }
+
+        function gameLoad() {
+          var gameSave = JSON.parse(localStorage.getItem("gameSave"))
+
+          if (typeof gameSave.cats !== "undefined") score = gameSave.cats
+          if (typeof gameSave.clickingPower !== "undefined") score = gameSave.clickingPower
+          if (typeof gameSave.catsPerSecond !== "undefined") score = gameSave.catsPerSecond
+          if (typeof gameSave.litterboxCost !== "undefined") score = gameSave.litterboxCost
+          if (typeof gameSave.litterboxPower !== "undefined") score = gameSave.litterboxPower
+          if (typeof gameSave.litterboxes !== "undefined") score = gameSave.litterboxes
+          if (typeof gameSave.scratchingPostCost !== "undefined") score = gameSave.scratchingPostCost
+          if (typeof gameSave.scratchingPostPower !== "undefined") score = gameSave.scratchingPostPower
+          if (typeof gameSave.scratchingPosts !== "undefined") score = gameSave.scratchingPosts
+        }
+
+        function gameSave() {
+          var gameSave = {
+            cats: cats,
+            clickingPower: clickingPower,
+            catsPerSecond: catsPerSecond,
+
+            litterboxCost: litterboxCost,
+            litterboxPower: litterboxPower,
+            litterboxes : litterboxes,
+            scratchingPostCost: scratchingPostCost,
+            scratchingPostPower : scratchingPostPower,
+            scratchingPosts: scratchingPosts
+          }
+
+          localStorage.setItem("gameSave", JSON.stringify(gameSave)); 
+        };
+
+        window.onload =function() {
+          gameLoad();
+        }
+
+
 
         setInterval(function () {
         
@@ -194,6 +232,10 @@
 
             addToCats(catsPerSecond);
         }, 1000)
+
+        setInterval(function(){
+          gameSave()
+        },30000)
     </script>
   </body>
 </html> 

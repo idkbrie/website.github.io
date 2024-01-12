@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+  <head>
+    <title>catinsurance</title>
+
+    <style>
+
+      .cat {
+        margin-top: 150px;
+        margin-left: 768px;
+      }
+
+
+      .cats {
+        color: #dddddd;
+        
+      }
+
+      .catsPerSecond {
+        color: #dddddd;
+        float: right;
+      }
+
+      .storeBuildings {
+        
+      }
+      body {
+        background-color: #5d1c4e;
+
+      }
+
+      
+    </style>
+  </head>
+
+  <body>
+
+
+    <div class="cats">
+      <h1><span id="cats">0</span> Cats </br><span id ="catsPerSecond">0</span> Cats per second</span></h1>
+
+    </div>
+
+    <div class="cat">
+      <img src="resources/gfx/cati.png" height="384" width="384" onclick="addToCats(clickingPower)">
+    </div>
+
+
+
+
+
+    <div class="storeBuildings">
+
+      <button onclick="buyLitterbox()">Litterbox [<span id="litterboxcost">15</span>] -- <span id="litterboxes">0</span> </button> </br>
+      <button onclick="buyScratchingPost()">Scratching Post [<span id="scratchingpostcost">250</span>] -- <span id="scratchingposts">0</span> </button>
+    </div>
+
+      <script>
+
+        var cats = 0;
+        var clickingPower = 1;
+        var catsPerSecond = 0;
+        var CPSinterval = 1;
+        var CPSdecimal = true;
+
+        var litterboxcost = 15;
+        var litterboxes = 0;
+        var scratchingpostcost= 250;
+        var scratchingposts = 0;
+
+
+        function buyLitterbox() {
+          if (cats >= litterboxcost) {
+            cats = cats - litterboxcost;
+            litterboxes = litterboxes + 1;
+            litterboxcost = Math.round(litterboxcost * 1.1);
+
+            document.getElementById("cats").innerHTML = cats;
+            document.getElementById("litterboxes").innerHTML = litterboxes;
+            document.getElementById("litterboxcost").innerHTML = litterboxcost;
+          }
+        }
+        function buyScratchingPost() {
+          if (cats >= scratchingpostcost) {
+            cats = cats - scratchingpostcost;
+            scratchingposts = scratchingposts + 1;
+            scratchingpostcost = Math.round(scratchingpostcost * 1.2);
+            
+
+            document.getElementById("cats").innerHTML = cats;
+            document.getElementById("scratchingposts").innerHTML = scratchingposts;
+            document.getElementById("scratchingpostcost").innerHTML = scratchingpostcost;
+          }
+        }
+          
+        
+
+        function addToCats(amount) {
+          cats = cats + amount;
+          document.getElementById("cats").innerHTML = cats;
+        }
+
+        function updateCPS() {
+          catsPerSecond = litterboxes + scratchingposts * 10; 
+          document.getElementById("catsPerSecond").innerHTML = catsPerSecond;
+          document.title = cats + " cats - CatiClicker"
+
+        }
+
+        setInterval(function () {
+        
+          updateCPS()
+        
+        }, 1)
+
+        setInterval(function(){
+
+            addToCats(litterboxes);
+        }, 1000)
+
+        setInterval(function(){
+          addToCats(scratchingposts);
+        }, 100)
+    </script>
+  </body>
+</html> 

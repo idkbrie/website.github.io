@@ -225,22 +225,17 @@
 
 
         function resetGame() {
-          var gameSave = {
-            cats: 0,
-            clickingPower: 0,
-            catsPerSecond: 0,
+          var cats = 0;
+        var clickingPower = 1;
+        var catsPerSecond = 0;
 
-            litterboxCost: 0,
-            litterboxPower: 0,
-            litterboxes : 0,
-            scratchingPostCost: 0,
-            scratchingPostPower : 0,
-            scratchingPosts: 0
-          }
+        var litterboxCost = 15;
+        var litterboxPower = 1;
+        var litterboxes = 0;
+        var scratchingPostCost= 250;
+        var scratchingPostPower = 1;
+        var scratchingPosts = 0;
 
-          localStorage.setItem("gameSave", JSON.stringify(gameSave)); 
-
-          gameLoad();
         };
 
         window.onload =function() {

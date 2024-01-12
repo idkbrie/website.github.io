@@ -141,7 +141,7 @@
         var litterboxPower = 1;
         var litterboxes = 0;
         var scratchingPostCost= 250;
-        var scratchingPostPower = 10;
+        var scratchingPostPower = 1;
         var scratchingPosts = 0;
 
 
@@ -237,8 +237,13 @@
 
         setInterval(function(){
 
-            addToCats(catsPerSecond);
-        }, 1000)
+              addToCats(litterboxes * litterboxPower);
+          }, 10000)
+
+        setInterval(function(){
+
+            addToCats(scratchingPosts * scratchingPostPower);
+            }, 2000)
 
         setInterval(function(){
           gameSave()

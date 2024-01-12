@@ -119,8 +119,8 @@
         <tr>
           <td id="image"><img src="resources/gfx/scratchingPost.png" height="92" width="92"></td>
           <td id="nameAndCost">
-            <h3>Scrathing Post</h3>
-            <p><span id="scratchingPostCost">250</span> cats</p>
+            <h3>Scratching Post</h3>
+            <p><span id="scratchingPostCost">100</span> cats</p>
           </td>
           <td id="amount"><h1><span id="scratchingPosts">0</span></h3></td>
         </tr>
@@ -140,7 +140,7 @@
           litterboxCost = 15;
           litterboxPower = 1;
           litterboxes = 0;
-          scratchingPostCost= 250;
+          scratchingPostCost= 100;
           scratchingPostPower = 1;
           scratchingPosts = 0;
           updateCPS()
@@ -158,7 +158,7 @@
         var litterboxCost = 15;
         var litterboxPower = 1;
         var litterboxes = 0;
-        var scratchingPostCost= 250;
+        var scratchingPostCost= 100;
         var scratchingPostPower = 1;
         var scratchingPosts = 0;
 
@@ -188,19 +188,34 @@
             document.getElementById("scratchingPostCost").innerHTML = scratchingPostCost;
           }
         }
+
+        function buy() {
+          if (cats >= scratchingPostCost) {
+            cats = cats - scratchingPostCost;
+            scratchingPosts = scratchingPosts + 1;
+            scratchingPostCost = Math.round(scratchingPostCost * 1.2);
+            updateCPS()
+            
+
+            document.getElementById("cats").innerHTML = cats;
+            document.getElementById("scratchingPosts").innerHTML = scratchingPosts;
+            document.getElementById("scratchingPostCost").innerHTML = scratchingPostCost;
+          }
+        }
           
         
 
         function addToCats(amount) {
           cats = cats + amount;
-          document.getElementById("cats").innerHTML = cats;
+          document.getElementById("cats").innerHTML = cats.toFixed(1);
         }
 
         function updateCPS() {
           catsPerSecond = (litterboxes * litterboxPower) * 0.1  + (scratchingPosts * scratchingPostPower) * 0.5; 
           catsPerSecond = catsPerSecond.toFixed(1);
+          
           document.getElementById("catsPerSecond").innerHTML = catsPerSecond;
-          document.title = cats + " cats - CatiClicker"
+          document.title = cats.toFixed() + " cats - CatiClicker"
 
         }
 
@@ -258,13 +273,20 @@
 
         setInterval(function(){
 
-              addToCats(litterboxes * litterboxPower);
-          }, 10000)
+              addToCats((litterboxes * litterboxPower) / 2300) ;
+          }, 1)
 
         setInterval(function(){
 
-            addToCats(scratchingPosts * scratchingPostPower);
-            }, 2000)
+            addToCats((scratchingPosts * scratchingPostPower) / 460);
+            }, 1)
+
+        setInterval(function(){
+
+            addToCats((0 *1) / 115);
+            }, 1)
+
+        
 
         setInterval(function(){
           gameSave()

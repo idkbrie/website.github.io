@@ -192,7 +192,7 @@
         }
 
         function updateCPS() {
-          catsPerSecond = (litterboxes * litterboxPower ) + (scratchingPosts * scratchingPostPower); 
+          catsPerSecond = (litterboxes * litterboxPower) * 0.1  + (scratchingPosts * scratchingPostPower) * 0.5; 
           document.getElementById("catsPerSecond").innerHTML = catsPerSecond;
           document.title = cats + " cats - CatiClicker"
 

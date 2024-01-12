@@ -98,8 +98,6 @@
 
         <div class="cat">
           <img src="resources/gfx/cati.png" height="384" width="384" onclick="addToCats(clickingPower)">
-
-
         </center>
     </div>
 
@@ -130,8 +128,23 @@
     </div>
 
     <button onclick="gameSave()">Save (the game autosaves every 30 seconds)</button>
+    <button onclick="resetGame()">Reset</button>
 
       <script>
+
+        function resetGame() {
+          var cats = 0;
+          var clickingPower = 1;
+          var catsPerSecond = 0;
+
+          var litterboxCost = 15;
+          var litterboxPower = 1;
+          var litterboxes = 0;
+          var scratchingPostCost= 250;
+          var scratchingPostPower = 1;
+          var scratchingPosts = 0;
+
+        };
 
         var cats = 0;
         var clickingPower = 1;
@@ -224,19 +237,6 @@
         };
 
 
-        function resetGame() {
-          var cats = 0;
-        var clickingPower = 1;
-        var catsPerSecond = 0;
-
-        var litterboxCost = 15;
-        var litterboxPower = 1;
-        var litterboxes = 0;
-        var scratchingPostCost= 250;
-        var scratchingPostPower = 1;
-        var scratchingPosts = 0;
-
-        };
 
         window.onload =function() {
           gameLoad();

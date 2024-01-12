@@ -4,27 +4,79 @@
 
     <style>
 
-      .cat {
-        margin-top: 150px;
-        margin-left: 768px;
+      .sectionLeft {
+        float: left;
+        width: 80%;
       }
 
+      .storeBuildings {
+        float: right;
+        width: 20%;
+      }
+
+      .shopButton {
+        font-family: "Lucida Console", "Courier New", monospace;
+        background-color: #783253; 
+        border-radius: 10px;  
+        width: 100%;
+        transition: all 0.05s ease-in-out;
+        margin-bottom: 10px;
+      }
+      
+      .shopButton:hover {
+        background-color: #993768;
+      }
+
+      #nameAndCost {
+        color: #dddddd;
+      }
+
+      #amount {
+        color: #dddddd;
+      }
+
+      .statsContainer {
+        background-color: #783253;
+        width: 50%;
+        border-radius: 15px;
+        font-size: 24px;
+        font-weight: bold;
+      }
 
       .cats {
+        font-family: "Lucida Console", "Courier New", monospace;
         color: #dddddd;
         
       }
 
       .catsPerSecond {
+        font-family: "Lucida Console", "Courier New", monospace;
         color: #dddddd;
         float: right;
       }
-
-      .storeBuildings {
-        
+      
+      
+      .cat img {
+        position: relative;   
+        transition: all .05s ease-in-out;
       }
+
+      .cat img:hover {
+        transform: scale(1.10);
+      }
+
+      .cat img:active {
+        transform: scale(0.95);
+      }
+
+      .unselectable {
+        user-select: none;
+
+      }
+
+
       body {
-        background-color: #5d1c4e;
+        background-color: #4a1e37;
 
       }
 
@@ -35,23 +87,45 @@
   <body>
 
 
-    <div class="cats">
-      <h1><span id="cats">0</span> Cats </br><span id ="catsPerSecond">0</span> Cats per second</span></h1>
+    <div class="sectionLeft">      
+      <center>        
+        <div class="statsContainer">
+          <div class="cats">
+            <span id="cats">0</span> Cats </br><span id ="catsPerSecond">0</span> Cats per second</span>
 
+          </div>
+        </div>
+
+        <div class="cat">
+          <img src="resources/gfx/cati.png" height="384" width="384" onclick="addToCats(clickingPower)">
+
+        </center>
     </div>
 
-    <div class="cat">
-      <img src="resources/gfx/cati.png" height="384" width="384" onclick="addToCats(clickingPower)">
-    </div>
 
 
 
-
-
-    <div class="storeBuildings">
-
-      <button onclick="buyLitterbox()">Litterbox [<span id="litterboxcost">15</span>] -- <span id="litterboxes">0</span> </button> </br>
-      <button onclick="buyScratchingPost()">Scratching Post [<span id="scratchingpostcost">250</span>] -- <span id="scratchingposts">0</span> </button>
+    <div class="storeBuildings unselectable">
+      <table class="shopButton" onclick="buyLitterbox()">
+        <tr>
+          <td id="image"><img src="resources/gfx/litterbox.png" height="92" width="92"></td>
+          <td id="nameAndCost">
+            <h3>Litterbox</h3>
+            <p><span id="litterboxCost">15</span> cats</p>
+          </td>
+          <td id="amount"><h1><span id="litterboxes">0</span></h3></td>
+        </tr>
+      </table>
+      <table class="shopButton" onclick="buyScratchingPost()">
+        <tr>
+          <td id="image"><img src="resources/gfx/scratchingPost.png" height="92" width="92"></td>
+          <td id="nameAndCost">
+            <h3>Scrathing Post</h3>
+            <p><span id="scratchingpostCost">250</span> cats</p>
+          </td>
+          <td id="amount"><h1><span id="scratchingposts">0</span></h3></td>
+        </tr>
+      </table>
     </div>
 
       <script>
@@ -62,33 +136,37 @@
         var CPSinterval = 1;
         var CPSdecimal = true;
 
-        var litterboxcost = 15;
+        var litterboxCost = 15;
+        var litterboxPower = 1;
         var litterboxes = 0;
-        var scratchingpostcost= 250;
+        var scratchingpostCost= 250;
+        var scratchingpostPower = 10;
         var scratchingposts = 0;
 
 
         function buyLitterbox() {
-          if (cats >= litterboxcost) {
-            cats = cats - litterboxcost;
+          if (cats >= litterboxCost) {
+            cats = cats - litterboxCost;
             litterboxes = litterboxes + 1;
-            litterboxcost = Math.round(litterboxcost * 1.1);
+            litterboxCost = Math.round(litterboxCost * 1.1);
 
             document.getElementById("cats").innerHTML = cats;
             document.getElementById("litterboxes").innerHTML = litterboxes;
-            document.getElementById("litterboxcost").innerHTML = litterboxcost;
+            document.getElementById("litterboxCost").innerHTML = litterboxCost;
+            updateCPS()
           }
         }
         function buyScratchingPost() {
-          if (cats >= scratchingpostcost) {
-            cats = cats - scratchingpostcost;
+          if (cats >= scratchingpostCost) {
+            cats = cats - scratchingpostCost;
             scratchingposts = scratchingposts + 1;
-            scratchingpostcost = Math.round(scratchingpostcost * 1.2);
+            scratchingpostCost = Math.round(scratchingpostCost * 1.2);
+            updateCPS()
             
 
             document.getElementById("cats").innerHTML = cats;
             document.getElementById("scratchingposts").innerHTML = scratchingposts;
-            document.getElementById("scratchingpostcost").innerHTML = scratchingpostcost;
+            document.getElementById("scratchingpostCost").innerHTML = scratchingpostCost;
           }
         }
           
@@ -100,7 +178,7 @@
         }
 
         function updateCPS() {
-          catsPerSecond = litterboxes + scratchingposts * 10; 
+          catsPerSecond = (litterboxes * litterboxPower ) + (scratchingposts * scratchingpostPower); 
           document.getElementById("catsPerSecond").innerHTML = catsPerSecond;
           document.title = cats + " cats - CatiClicker"
 
@@ -110,16 +188,12 @@
         
           updateCPS()
         
-        }, 1)
+        }, 5000)
 
         setInterval(function(){
 
-            addToCats(litterboxes);
+            addToCats(catsPerSecond);
         }, 1000)
-
-        setInterval(function(){
-          addToCats(scratchingposts);
-        }, 100)
     </script>
   </body>
 </html> 

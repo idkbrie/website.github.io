@@ -188,15 +188,15 @@
         function gameLoad() {
           var gameSave = JSON.parse(localStorage.getItem("gameSave"))
 
-          if (typeof gameSave.cats !== "undefined") score = gameSave.cats
-          if (typeof gameSave.clickingPower !== "undefined") score = gameSave.clickingPower
-          if (typeof gameSave.catsPerSecond !== "undefined") score = gameSave.catsPerSecond
-          if (typeof gameSave.litterboxCost !== "undefined") score = gameSave.litterboxCost
-          if (typeof gameSave.litterboxPower !== "undefined") score = gameSave.litterboxPower
-          if (typeof gameSave.litterboxes !== "undefined") score = gameSave.litterboxes
-          if (typeof gameSave.scratchingPostCost !== "undefined") score = gameSave.scratchingPostCost
-          if (typeof gameSave.scratchingPostPower !== "undefined") score = gameSave.scratchingPostPower
-          if (typeof gameSave.scratchingPosts !== "undefined") score = gameSave.scratchingPosts
+          if (typeof gameSave.cats !== "undefined") cats = gameSave.cats
+          if (typeof gameSave.clickingPower !== "undefined") clickingPower = gameSave.clickingPower
+          if (typeof gameSave.catsPerSecond !== "undefined") catsPerSecond = gameSave.catsPerSecond
+          if (typeof gameSave.litterboxCost !== "undefined") litterboxCost = gameSave.litterboxCost
+          if (typeof gameSave.litterboxPower !== "undefined") litterboxPower = gameSave.litterboxPower
+          if (typeof gameSave.litterboxes !== "undefined") litterboxes= gameSave.litterboxes
+          if (typeof gameSave.scratchingPostCost !== "undefined") scratchingPostCost = gameSave.scratchingPostCost
+          if (typeof gameSave.scratchingPostPower !== "undefined") scratchingPostPower = gameSave.scratchingPostPower
+          if (typeof gameSave.scratchingPosts !== "undefined") scratchingPosts = gameSave.scratchingPosts
         }
 
         function gameSave() {
